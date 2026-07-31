@@ -43,10 +43,12 @@ def populate_invoice_fields(invoice: Invoice, payload: InvoicePayload) -> None:
             invoice.invoice_date = datetime.fromisoformat(str(raw_date)).date()
         except ValueError:
             pass
-    invoice.taxable_amount = _decimal(data, "taxableAmount", "taxable_amount")
-    invoice.cgst_amount = _decimal(data, "cgstAmount", "cgst_amount")
-    invoice.sgst_amount = _decimal(data, "sgstAmount", "sgst_amount")
-    invoice.igst_amount = _decimal(data, "igstAmount", "igst_amount")
+    # Clients send the shorter field names (taxableValue/cgst/...); keep the
+    # long forms so existing integrations and fixtures still populate.
+    invoice.taxable_amount = _decimal(data, "taxableAmount", "taxable_amount", "taxableValue")
+    invoice.cgst_amount = _decimal(data, "cgstAmount", "cgst_amount", "cgst")
+    invoice.sgst_amount = _decimal(data, "sgstAmount", "sgst_amount", "sgst")
+    invoice.igst_amount = _decimal(data, "igstAmount", "igst_amount", "igst")
     invoice.total_tax = _decimal(data, "totalTax", "total_tax")
     invoice.net_amount = _decimal(data, "netAmount", "net_amount", "totalAmount")
     invoice.uploaded_at = datetime.now(timezone.utc)

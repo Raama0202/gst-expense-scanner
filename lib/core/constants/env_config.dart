@@ -10,7 +10,7 @@ class EnvConfig {
 
   static const String apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'https://api.gstexpenses.app/v1',
+    defaultValue: 'https://gst-expense-scanner.onrender.com/v1',
   );
 
   static const String env = String.fromEnvironment(

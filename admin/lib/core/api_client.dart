@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'constants.dart';
+import 'server_config.dart';
 import 'storage.dart';
 
 final secureStoreProvider = Provider(
@@ -16,13 +16,15 @@ final secureStoreProvider = Provider(
   ),
 );
 
+/// Free Render services can take 30–60s to wake after idle.
 final dioProvider = Provider<Dio>((ref) {
   final store = ref.watch(secureStoreProvider);
   final dio = Dio(
     BaseOptions(
-      baseUrl: AppConstants.apiBaseUrl,
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 30),
+      baseUrl: ServerConfig.baseUrl,
+      connectTimeout: const Duration(seconds: 90),
+      receiveTimeout: const Duration(seconds: 90),
+      sendTimeout: const Duration(seconds: 120),
       headers: const {'Accept': 'application/json'},
     ),
   );
@@ -39,6 +41,10 @@ final dioProvider = Provider<Dio>((ref) {
   );
   return dio;
 });
+
+void updateAdminBaseUrl(WidgetRef ref, String baseUrl) {
+  ref.read(dioProvider).options.baseUrl = baseUrl;
+}
 
 String apiError(Object error) {
   if (error is DioException) {

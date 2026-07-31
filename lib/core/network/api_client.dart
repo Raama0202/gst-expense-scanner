@@ -39,9 +39,10 @@ class ApiClient {
   void _configure() {
     _dio.options = BaseOptions(
       baseUrl: ServerConfig.baseUrl,
-      connectTimeout: const Duration(seconds: 20),
-      receiveTimeout: const Duration(seconds: 45),
-      sendTimeout: const Duration(seconds: 60),
+      // Free Render cold-starts can take ~60s before the first byte.
+      connectTimeout: const Duration(seconds: 90),
+      receiveTimeout: const Duration(seconds: 90),
+      sendTimeout: const Duration(seconds: 120),
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
         HttpHeaders.contentTypeHeader: 'application/json',

@@ -15,6 +15,8 @@ abstract final class AdminTheme {
       colorScheme: colors,
       scaffoldBackgroundColor: const Color(0xFFF8F9FC),
     );
+    // GoogleFonts.x() returns styles with a null color; without re-applying the
+    // scheme colors below they resolve to white and vanish on light surfaces.
     final text = GoogleFonts.sourceSans3TextTheme(base.textTheme).copyWith(
       displaySmall: GoogleFonts.sourceSans3(
         fontSize: 36,
@@ -42,7 +44,8 @@ abstract final class AdminTheme {
         fontSize: 15,
         fontWeight: FontWeight.w600,
       ),
-    );
+    ).apply(bodyColor: colors.onSurface, displayColor: colors.onSurface);
+
     return base.copyWith(
       textTheme: text,
       appBarTheme: AppBarTheme(
@@ -50,6 +53,10 @@ abstract final class AdminTheme {
         foregroundColor: colors.onSurface,
         elevation: 0,
         titleTextStyle: text.titleLarge?.copyWith(color: colors.onSurface),
+      ),
+      listTileTheme: ListTileThemeData(
+        textColor: colors.onSurface,
+        iconColor: colors.onSurfaceVariant,
       ),
       cardTheme: CardThemeData(
         elevation: 0,

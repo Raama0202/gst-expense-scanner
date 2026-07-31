@@ -39,10 +39,12 @@ Step-by-step: [`docs/GO_LIVE.md`](../../docs/GO_LIVE.md)
 After Render gives you `https://YOUR-SERVICE.onrender.com`, rebuild:
 
 ```powershell
-$api = "https://YOUR-SERVICE.onrender.com/v1"
+$api = "https://gst-expense-scanner.onrender.com/v1"
 flutter build apk --release --target-platform=android-arm64 --no-tree-shake-icons `
   --dart-define=API_BASE_URL=$api --dart-define=ALLOW_SERVER_OVERRIDE=true
 ```
+
+Current Live APKs target **https://gst-expense-scanner.onrender.com/v1**.
 
 ## ITC (Admin)
 

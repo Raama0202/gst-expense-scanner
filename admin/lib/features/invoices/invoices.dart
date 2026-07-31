@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../core/api_client.dart';
 import '../../core/constants.dart';
+import '../../core/server_config.dart';
 import '../../shared/widgets.dart';
 
 class InvoiceRepository {
@@ -266,11 +267,12 @@ class InvoiceDetailScreen extends ConsumerWidget {
               final edited = item['editedData'] is Map
                   ? Map<String, dynamic>.from(item['editedData'] as Map)
                   : <String, dynamic>{};
-              final image =
-                  (item['imageUrl'] ??
-                          item['originalImageUrl'] ??
-                          item['thumbnailUrl'])
-                      ?.toString();
+              final image = ServerConfig.absoluteUrl(
+                (item['imageUrl'] ??
+                        item['originalImageUrl'] ??
+                        item['thumbnailUrl'])
+                    ?.toString(),
+              );
               return Column(
                 children: [
                   LayoutBuilder(

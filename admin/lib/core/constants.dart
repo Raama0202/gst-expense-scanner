@@ -2,7 +2,13 @@ abstract final class AppConstants {
   static const appName = 'GST Expense Admin';
   static const apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://localhost:8000/v1',
+    defaultValue: 'https://gst-expense-scanner.onrender.com/v1',
+  );
+
+  /// Demo / Live builds may change the API host without rebuilding.
+  static const allowServerOverride = bool.fromEnvironment(
+    'ALLOW_SERVER_OVERRIDE',
+    defaultValue: false,
   );
 }
 

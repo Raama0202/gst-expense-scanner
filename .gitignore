@@ -53,7 +53,7 @@ google-services.json
 dist/apk/*.apk
 !**/*.md
 backend/*.db
-**/uploads/
-**/test_uploads*/
+backend/uploads/
+backend/test_uploads*/
 admin/build/
 admin/.dart_tool/
