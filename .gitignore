@@ -57,3 +57,4 @@ backend/uploads/
 backend/test_uploads*/
 admin/build/
 admin/.dart_tool/
+.github/workflows/
